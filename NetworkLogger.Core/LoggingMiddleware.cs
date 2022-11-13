@@ -67,15 +67,16 @@ public class LoggingMiddleware
 
             await _loggerHandler.Write(new Log()
             {
+                Hostname = context.Request.Host.ToString(),
                 ClientIp = context.Connection.RemoteIpAddress.ToString(),
                 Claims = context.User.Claims.ToList(),
                 ExecutionTimeMs = ms,
                 LogLevel = hasError ? LogLevel.Error : LogLevel.Info,
                 Url = url,
                 Method = method,
-                RequestHeaders = context.Request.Headers.ToString() ?? string.Empty,
-                ResponseHeaders = context.Response.Headers.ToString() ?? string.Empty,
-                Parameters = !string.IsNullOrEmpty(context.Request.QueryString.Value)
+                RequestHeaders = string.Join("\n\r", context.Request.Headers.Select(x => $"{x.Key}={x.Value}")),
+                ResponseHeaders = string.Join("\n\r", context.Response.Headers.Select(x => $"{x.Key}={x.Value}")),
+                QueryString = !string.IsNullOrEmpty(context.Request.QueryString.Value)
                     ? context.Request.QueryString.Value!
                     : null!,
                 Request = requestBody!,
