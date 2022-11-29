@@ -32,7 +32,6 @@ public class LoggingMiddleware
 
         try
         {
-            Console.WriteLine("I'm a conflict in master");
             context.Request.EnableBuffering();
 
             requestBody = new StreamReader(context.Request.Body).ReadToEndAsync().Result;
