@@ -32,7 +32,8 @@ public class LoggingMiddleware
 
         try
         {
-            Console.WriteLine("Hi!");
+            string variable = "Conflict";
+            
             context.Request.EnableBuffering();
 
             requestBody = new StreamReader(context.Request.Body).ReadToEndAsync().Result;
