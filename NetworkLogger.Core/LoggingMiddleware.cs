@@ -18,13 +18,13 @@ public class LoggingMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        DateTime start = DateTime.UtcNow;
+        var start = DateTime.UtcNow;
 
-        string url = context.Request.Path.Value!;
+        var url = context.Request.Path.Value!;
 
-        string method = context.Request.Method;
+        var method = context.Request.Method;
 
-        bool hasError = false;
+        var hasError = false;
 
         string? responseBody = null;
 
@@ -32,8 +32,6 @@ public class LoggingMiddleware
 
         try
         {
-            string variable = "Conflict";
-
             context.Request.EnableBuffering();
 
             requestBody = new StreamReader(context.Request.Body).ReadToEndAsync().Result;
@@ -65,7 +63,7 @@ public class LoggingMiddleware
         }
         finally
         {
-            int ms = (DateTime.UtcNow - start).Milliseconds;
+            var ms = (DateTime.UtcNow - start).Milliseconds;
 
             await _loggerHandler.Write(new Log()
             {
@@ -91,7 +89,7 @@ public class LoggingMiddleware
     {
         response.Body.Seek(0, SeekOrigin.Begin);
 
-        string responseText = new StreamReader(response.Body).ReadToEndAsync().Result;
+        var responseText = new StreamReader(response.Body).ReadToEndAsync().Result;
 
         response.Body.Seek(0, SeekOrigin.Begin);
 
