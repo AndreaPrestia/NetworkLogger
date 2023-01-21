@@ -85,7 +85,7 @@ public class LoggingMiddleware
         }
     }
     
-    private string LoadResponseBody(HttpResponse response)
+    private static string LoadResponseBody(HttpResponse response)
     {
         response.Body.Seek(0, SeekOrigin.Begin);
 
