@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLogger.Core", "NetworkLogger.Core\NetworkLogger.Core.csproj", "{9A07A465-A675-40C1-9941-2D7119100DD5}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkLogger.Core", "NetworkLogger.Core\NetworkLogger.Core.csproj", "{9A07A465-A675-40C1-9941-2D7119100DD5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{A603E083-7D37-49C0-9672-60D24F240BF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLogger.Test", "NetworkLogger.Test\NetworkLogger.Test.csproj", "{7C6EA354-1294-4571-B130-70899B27149C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLogger.SqlServer", "NetworkLogger.SqlServer\NetworkLogger.SqlServer.csproj", "{5B3AC605-0310-4DAE-ABD3-461907D9C7E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkLogger.Test", "NetworkLogger.Test\NetworkLogger.Test.csproj", "{7C6EA354-1294-4571-B130-70899B27149C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +23,9 @@ Global
 		{7C6EA354-1294-4571-B130-70899B27149C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C6EA354-1294-4571-B130-70899B27149C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C6EA354-1294-4571-B130-70899B27149C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B3AC605-0310-4DAE-ABD3-461907D9C7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B3AC605-0310-4DAE-ABD3-461907D9C7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B3AC605-0310-4DAE-ABD3-461907D9C7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B3AC605-0310-4DAE-ABD3-461907D9C7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7C6EA354-1294-4571-B130-70899B27149C} = {A603E083-7D37-49C0-9672-60D24F240BF3}

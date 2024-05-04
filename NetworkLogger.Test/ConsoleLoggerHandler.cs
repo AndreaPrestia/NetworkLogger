@@ -9,24 +9,27 @@ public class ConsoleLoggerHandler : ILoggerHandler
     {
         Console.WriteLine($"Id : {log.Id}");
         Console.WriteLine($"Created : {log.Created}");
-        Console.WriteLine($"Level : {log.LogLevel}");
         Console.WriteLine($"Hostname : {log.Hostname}");
         Console.WriteLine($"ClientIp : {log.ClientIp}");
 
-        foreach (var claim in log.Claims)
-        {
-            Console.WriteLine($"Claim : {claim.Type} {claim.Value}");
-        }
-         
+        if (log.Claims != null)
+            foreach (var claim in log.Claims)
+            {
+                Console.WriteLine($"Claim : {claim.Key} {claim.Value}");
+            }
+
         Console.WriteLine($"Url : {log.Url}");
         Console.WriteLine($"Method : {log.Method}");
-        Console.WriteLine($"Request headers : \n\r{log.RequestHeaders}");
-        Console.WriteLine($"Query string : {log.QueryString}");
+        if (log.RequestHeaders != null)
+            Console.WriteLine($"Request headers : \n\r{string.Join(",", log.RequestHeaders.Select(x => $"{x.Key}:{x.Value}"))}");
+        if (log.QueryString != null)
+            Console.WriteLine($"Query string : \n\r{string.Join(",", log.QueryString.Select(x => $"{x.Key}:{x.Value}"))}");
         Console.WriteLine($"Request : {log.Request}");
         Console.WriteLine($"Response : {log.Response}");
-        Console.WriteLine($"Response headers : \n\r{log.ResponseHeaders}");
+        if (log.ResponseHeaders != null)
+            Console.WriteLine($"Response headers : \n\r{string.Join(",", log.ResponseHeaders.Select(x => $"{x.Key}:{x.Value}"))}");
         Console.WriteLine($"Execution time (ms) : {log.ExecutionTimeMs}");
-        
+
         //ugly, only for example purposes :) 
         await Task.Delay(10);
     }

@@ -62,10 +62,6 @@ public class SqlServerHandler : ILoggerHandler
         });
         command.Parameters.Add(new SqlParameter()
         {
-            ParameterName = "@loglevel", Value = log.LogLevel.ToString()
-        });
-        command.Parameters.Add(new SqlParameter()
-        {
             ParameterName = "@querystring", Value = !string.IsNullOrWhiteSpace(log.QueryString) ? log.QueryString : DBNull.Value
         });
         command.Parameters.Add(new SqlParameter()

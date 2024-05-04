@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace NetworkLogger.Core.Entities;
+﻿namespace NetworkLogger.Core.Entities;
 
 public class Log
 {
@@ -8,30 +6,20 @@ public class Log
     {
         Id = Guid.NewGuid();
         Created = DateTime.UtcNow;
-        Claims = new List<Claim>();
     }
     
     public Guid Id { get; set; }
-    public List<Claim> Claims { get; set; }
+    public Dictionary<string, string>? Claims { get; set; }
     public DateTime Created { get; set; }
-    public LogLevel LogLevel { get; set; }
     public string ClientIp { get; set; } = null!;
     public string Hostname { get; set; } = null!;
     public string Url { get; set; } = null!;
     public string Method { get; set; } = null!;
-    public string RequestHeaders { get; set; } = null!;
-    public string ResponseHeaders { get; set; } = null!;
-
-    public string QueryString { get; set; } = null!;
-    public string Request { get; set; } = null!;
+    public Dictionary<string, string>? RequestHeaders { get; set; }
+    public Dictionary<string, string>? ResponseHeaders { get; set; }
+    public Dictionary<string, string>? QueryString { get; set; }
+    public string? Request { get; set; }
     public string? Response { get; set; }
+    public string? Error { get; set; }
     public int ExecutionTimeMs { get; set; }
-}
-
-public enum LogLevel
-{
-    Info = 'i',
-    Debug = 'd',
-    Error = 'e',
-    Warning = 'w'
 }

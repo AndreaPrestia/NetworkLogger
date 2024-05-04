@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NetworkLogger.Core.Entities;
 using NetworkLogger.Core.Interfaces;
-using LogLevel = NetworkLogger.Core.Entities.LogLevel;
 
 namespace NetworkLogger.Core;
 
@@ -24,7 +23,7 @@ public class LoggingMiddleware
 
         var method = context.Request.Method;
 
-        var hasError = false;
+        string? errorMessage = null;
 
         string? responseBody = null;
 
@@ -57,9 +56,7 @@ public class LoggingMiddleware
         }
         catch (Exception ex)
         {
-            hasError = true;
-
-            responseBody = $"{ex.Message}\n\r{ex.StackTrace}";
+            errorMessage = $"{ex.Message}\n\r{ex.StackTrace}";
         }
         finally
         {
@@ -69,18 +66,18 @@ public class LoggingMiddleware
             {
                 Hostname = context.Request.Host.ToString(),
                 ClientIp = context.Connection.RemoteIpAddress.ToString(),
-                Claims = context.User.Claims.ToList(),
+                Claims = context.User.Claims.Any() ? context.User.Claims.ToDictionary(x => x.Type, x => x.Value) : null,
                 ExecutionTimeMs = ms,
-                LogLevel = hasError ? LogLevel.Error : LogLevel.Info,
                 Url = url,
                 Method = method,
-                RequestHeaders = string.Join("\n\r", context.Request.Headers.Select(x => $"{x.Key}={x.Value}")),
-                ResponseHeaders = string.Join("\n\r", context.Response.Headers.Select(x => $"{x.Key}={x.Value}")),
-                QueryString = !string.IsNullOrEmpty(context.Request.QueryString.Value)
-                    ? context.Request.QueryString.Value!
+                RequestHeaders = context.Request.Headers is { Count: > 0 } ? context.Request.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()) : null,
+                ResponseHeaders = context.Response.Headers is { Count: > 0 } ? context.Response.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()) : null,
+                QueryString = context.Request.Query is { Count: > 0 }
+                    ? context.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString())
                     : null!,
-                Request = requestBody!,
-                Response = responseBody
+                Request = requestBody,
+                Response = responseBody,
+                Error = errorMessage
             });
         }
     }
