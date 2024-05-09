@@ -3,9 +3,9 @@ using NetworkLogger.Core.Interfaces;
 
 namespace NetworkLogger.Test;
 
-public class ConsoleLoggerHandler : ILoggerHandler
+public class ConsoleLoggerWriter : ILoggerWriter
 {
-    public async Task Write(Log log)
+    public async Task WriteAsync(Log log, CancellationToken cancellationToken = default)
     {
         Console.WriteLine($"Id : {log.Id}");
         Console.WriteLine($"Created : {log.Created}");
@@ -31,6 +31,6 @@ public class ConsoleLoggerHandler : ILoggerHandler
         Console.WriteLine($"Execution time (ms) : {log.ExecutionTimeMs}");
 
         //ugly, only for example purposes :) 
-        await Task.Delay(10);
+        await Task.Delay(10, cancellationToken);
     }
 }

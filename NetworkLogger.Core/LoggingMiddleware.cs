@@ -7,12 +7,12 @@ namespace NetworkLogger.Core;
 public class LoggingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILoggerHandler _loggerHandler;
+    private readonly ILoggerWriter _loggerWriter;
 
-    public LoggingMiddleware(RequestDelegate next, ILoggerHandler loggerHandler)
+    public LoggingMiddleware(RequestDelegate next, ILoggerWriter loggerWriter)
     {
         _next = next ?? throw new ArgumentNullException(nameof(next));
-        _loggerHandler = loggerHandler ?? throw new ArgumentNullException(nameof(loggerHandler));
+        _loggerWriter = loggerWriter ?? throw new ArgumentNullException(nameof(loggerWriter));
     }
 
     public async Task Invoke(HttpContext context)
@@ -62,7 +62,7 @@ public class LoggingMiddleware
         {
             var ms = (DateTime.UtcNow - start).Milliseconds;
 
-            await _loggerHandler.Write(new Log()
+            await _loggerWriter.WriteAsync(new Log()
             {
                 Hostname = context.Request.Host.ToString(),
                 ClientIp = context.Connection.RemoteIpAddress.ToString(),

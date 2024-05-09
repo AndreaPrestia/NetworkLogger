@@ -4,7 +4,7 @@ using NetworkLogger.Test;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<ILoggerHandler, ConsoleLoggerHandler>();
+builder.Services.AddSingleton<ILoggerWriter, ConsoleLoggerWriter>();
 
 var app = builder.Build();
 
